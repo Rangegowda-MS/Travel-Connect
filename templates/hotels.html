@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+<meta charset="utf-8">
+<title>Hotels | Travelconnect</title>
+
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar-custom{
+    background:#0f172a;
+    padding:18px 40px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.navbar-brand{
+    color:#fff !important;
+    font-size:30px;
+    font-weight:700;
+}
+
+.home-btn{
+    background:#2563eb;
+    color:#fff !important;
+    padding:10px 22px;
+    border-radius:10px;
+    text-decoration:none !important;
+    font-weight:600;
+    transition:.3s;
+}
+
+.home-btn:hover{
+    background:#1d4ed8;
+}
+
+/* HERO */
+
+.hero{
+    background:
+    linear-gradient(rgba(15,23,42,.75),
+    rgba(15,23,42,.75)),
+    url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80');
+    background-size:cover;
+    background-position:center;
+    padding:120px 20px;
+    text-align:center;
+    color:#fff;
+}
+
+.hero h1{
+    font-size:58px;
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:19px;
+    opacity:.9;
+}
+
+/* SEARCH CARD */
+
+.search-card{
+    background:#fff;
+    border-radius:25px;
+    padding:35px;
+    margin-top:-60px;
+    box-shadow:0 15px 40px rgba(0,0,0,.10);
+}
+
+.search-title{
+    text-align:center;
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:25px;
+    color:#111827;
+}
+
+.search-card input,
+.search-card select{
+    width:100%;
+    height:55px;
+    border:1px solid #dbe2ea;
+    border-radius:12px;
+    padding:0 15px;
+}
+
+.search-card input:focus,
+.search-card select:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+.search-btn{
+    width:100%;
+    height:55px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    margin-top:10px;
+    transition:.3s;
+}
+
+.search-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* HOTELS TITLE */
+
+.section-title{
+    text-align:center;
+    margin:60px 0 40px;
+}
+
+.section-title h2{
+    font-size:42px;
+    font-weight:800;
+    color:#111827;
+}
+
+.section-title p{
+    color:#64748b;
+}
+
+/* HOTEL CARD */
+
+.hotel-card{
+    background:#fff;
+    border-radius:25px;
+    overflow:hidden;
+    margin-bottom:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.4s;
+}
+
+.hotel-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 45px rgba(0,0,0,.15);
+}
+
+.hotel-link{
+    text-decoration:none !important;
+}
+
+.hotel-image{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+}
+
+.hotel-content{
+    padding:30px;
+}
+
+.hotel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.hotel-name{
+    font-size:32px;
+    font-weight:700;
+    color:#111827;
+}
+
+.rating-badge{
+    background:#16a34a;
+    color:white;
+    padding:8px 16px;
+    border-radius:30px;
+    font-weight:600;
+}
+
+.hotel-address{
+    margin-top:15px;
+    color:#64748b;
+    line-height:1.8;
+}
+
+.info-grid{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.info-box{
+    background:#f8fafc;
+    border-radius:15px;
+    padding:20px;
+}
+
+.info-box h6{
+    color:#64748b;
+    margin-bottom:10px;
+    font-weight:600;
+}
+
+.info-box p{
+    margin:0;
+    font-weight:600;
+    color:#111827;
+}
+
+.hotel-footer{
+    margin-top:30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.price{
+    font-size:42px;
+    font-weight:800;
+    color:#16a34a;
+}
+
+.price span{
+    font-size:15px;
+    color:#64748b;
+}
+
+.book-btn{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    padding:14px 30px;
+    border-radius:12px;
+    font-weight:600;
+    text-decoration:none !important;
+    transition:.3s;
+}
+
+.book-btn:hover{
+    color:white;
+    transform:translateY(-2px);
+}
+
+/* BACK BUTTON */
+
+.back-section{
+    text-align:center;
+    margin:50px 0 70px;
+}
+
+.back-btn{
+    background:#111827;
+    color:white;
+    padding:14px 30px;
+    border-radius:12px;
+    text-decoration:none !important;
+    font-weight:600;
+}
+
+.back-btn:hover{
+    color:white;
+    background:#1f2937;
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .hotel-name{
+        font-size:26px;
+    }
+
+    .price{
+        font-size:32px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-custom">
+
+    <a class="navbar-brand" href="/">
+        🏨 Travelconnect
+    </a>
+
+    <div class="ml-auto">
+
+        <a href="{% url 'home' %}" class="home-btn">
+            Home
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>Find Your Perfect Stay</h1>
+
+    <p>
+        Discover luxury hotels, resorts and budget stays worldwide
+    </p>
+
+</section>
+
+<!-- SEARCH -->
+
+<div class="container">
+
+    <div class="search-card">
+
+        <h2 class="search-title">
+            Search Hotels
+        </h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button class="search-btn">
+                Search Hotels
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- HOTEL RESULTS -->
+
+{% if Hotels %}
+
+<div class="container">
+
+    <div class="section-title">
+        <h2>Available Hotels</h2>
+        <p>Select your preferred hotel and continue booking</p>
+    </div>
+
+    {% for i in Hotels %}
+
+    <div class="hotel-card">
+
+        <img src="/media/{{ i.image1 }}"
+             class="hotel-image"
+             alt="{{ i.hotel_name }}">
+
+        <div class="hotel-content">
+
+            <div class="hotel-header">
+
+                <h3 class="hotel-name">
+                    {{ i.hotel_name }}
+                </h3>
+
+                <div class="rating-badge">
+                    ⭐ {{ i.hotel_rating }}/5
+                </div>
+
+            </div>
+
+            <div class="hotel-address">
+                {{ i.hotel_address }}
+                <br>
+                {{ i.distfromap }} KM from nearest airport
+            </div>
+
+            <div class="info-grid">
+
+                <div class="info-box">
+                    <h6>Amenities</h6>
+                    <p>{{ i.amenities }}</p>
+                </div>
+
+                <div class="info-box">
+                    <h6>Distance</h6>
+                    <p>{{ i.distfromap }} KM</p>
+                </div>
+
+            </div>
+
+            <div class="hotel-footer">
+
+                <div class="price">
+                    ₹{{ i.hotel_price }}
+                    <span>/ night</span>
+                </div>
+
+                <a href="/bookhotel/{{ i.hotel_name }}/{{ date }}"
+                   class="book-btn">
+
+                    Book Now →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+<!-- BACK BUTTON -->
+
+<div class="back-section">
+
+    <a href="{{ request.META.HTTP_REFERER|default:'/' }}"
+       class="back-btn">
+
+        ← Go Back
+
+    </a>
+
+</div>
+
+</body>
+</html>

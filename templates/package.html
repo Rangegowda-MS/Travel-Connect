@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Packages</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    overflow-x:hidden;
+}
+
+/* HERO */
+
+.hero{
+    min-height:60vh;
+    background:
+    linear-gradient(rgba(15,23,42,.75),
+    rgba(15,23,42,.75)),
+    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#fff;
+}
+
+.hero-content h1{
+    font-size:55px;
+    font-weight:700;
+}
+
+.hero-content p{
+    font-size:18px;
+    margin-top:10px;
+}
+
+/* SEARCH CARD */
+
+.search-card{
+    margin-top:-80px;
+}
+
+.search-box{
+    background:#fff;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+/* SECTION TITLE */
+
+.section-title{
+    text-align:center;
+    margin:70px 0 40px;
+    font-size:40px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+/* FLIGHT CARDS */
+
+.flight-card{
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.flight-card:hover{
+    transform:translateY(-8px);
+}
+
+.flight-company{
+    font-size:24px;
+    font-weight:700;
+    color:#2563eb;
+}
+
+.flight-route{
+    display:flex;
+    justify-content:space-between;
+    margin-top:20px;
+}
+
+.flight-price{
+    font-size:28px;
+    font-weight:700;
+    color:#10b981;
+}
+
+/* HOTEL CARD */
+
+.hotel-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:35px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.hotel-card:hover{
+    transform:translateY(-10px);
+}
+
+.hotel-img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+}
+
+.hotel-content{
+    padding:25px;
+}
+
+.hotel-name{
+    font-size:28px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.hotel-price{
+    font-size:32px;
+    color:#10b981;
+    font-weight:700;
+}
+
+.rating{
+    color:#f59e0b;
+    font-size:20px;
+}
+
+/* DESTINATIONS */
+
+.place-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:30px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.place-card:hover{
+    transform:translateY(-8px);
+}
+
+.place-img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+}
+
+.place-content{
+    padding:25px;
+}
+
+/* BUTTONS */
+
+.btn-modern{
+    background:#2563eb;
+    border:none;
+    color:#fff;
+    padding:12px 35px;
+    border-radius:30px;
+    font-weight:600;
+}
+
+.btn-modern:hover{
+    background:#1d4ed8;
+    color:#fff;
+}
+
+/* BOOK SECTION */
+
+.book-section{
+    text-align:center;
+    margin:70px 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Explore Your Dream Destination</h1>
+        <p>Flights, Hotels & Places in One Package</p>
+    </div>
+</section>
+
+<!-- SEARCH -->
+
+<div class="container search-card">
+    <div class="search-box">
+        <div class="text-center mb-4">
+            <a href="/" class="btn btn-secondary">
+                Home
+            </a>
+        </div>
+
+        <h2 class="text-center mb-4">
+            Search Travel Packages
+        </h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="text-center">
+                <button class="btn btn-modern">
+                    Search Packages
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% if Flights or Hotels or Famplace %}
+
+<!-- FLIGHTS -->
+
+{% if Flights %}
+<h2 class="section-title">
+    Available Flights
+</h2>
+
+<div class="container">
+
+{% for i in Flights %}
+
+<div class="flight-card">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <div>
+            <div class="flight-company">
+                {{ i.company }}
+            </div>
+
+            Flight No: {{ i.flight_num }}
+        </div>
+
+        <div class="flight-price">
+            ₹{{ i.eprice }}
+        </div>
+
+    </div>
+
+    <div class="flight-route">
+
+        <div>
+            <strong>FROM</strong><br>
+            {{ i.source }}
+        </div>
+
+        <div>
+            <strong>TO</strong><br>
+            {{ i.destination }}
+        </div>
+
+        <div>
+            <strong>DEPART</strong><br>
+            {{ i.dept_time }}
+        </div>
+
+        <div>
+            <strong>ARRIVE</strong><br>
+            {{ i.dest_time }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+{% endif %}
+
+
+<!-- HOTELS -->
+
+{% if Hotels %}
+<h2 class="section-title">
+    Recommended Hotels
+</h2>
+
+<div class="container">
+
+{% for j in Hotels %}
+
+<div class="hotel-card">
+
+    <img src="/media/{{ j.image1 }}"
+         class="hotel-img"
+         alt="hotel">
+
+    <div class="hotel-content">
+
+        <div class="hotel-name">
+            {{ j.hotel_name }}
+        </div>
+
+        <p>{{ j.hotel_address }}</p>
+        <p>{{ j.distfromap }} KM from airport</p>
+        <p>{{ j.amenities }}</p>
+
+        <div class="rating">
+            {% with ''|center:j.hotel_rating as range %}
+            {% for _ in range %}
+            ★
+            {% endfor %}
+            {% endwith %}
+        </div>
+
+        <div class="hotel-price">
+            ₹{{ j.hotel_price }}
+            <small>/night</small>
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+{% endif %}
+
+
+<!-- DESTINATIONS -->
+
+{% if Famplace %}
+<h2 class="section-title">
+    Popular Places
+</h2>
+
+<div class="container">
+
+<div class="row">
+
+{% for k in Famplace %}
+
+<div class="col-lg-4 col-md-6">
+
+    <div class="place-card">
+
+        <img src="/media/{{ k.image }}"
+             class="place-img"
+             alt="place">
+
+        <div class="place-content">
+
+            <h4>{{ k.place_name }}</h4>
+
+            <p>{{ k.desc }}</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+{% endif %}
+
+
+<!-- BOOK BUTTON -->
+
+{% if Flights and Hotels %}
+<div class="book-section">
+
+    <a href="/bookpackage/{{ source }}/{{ city }}/{{ date }}"
+       class="btn btn-modern btn-lg">
+
+        Book Complete Package
+
+    </a>
+
+</div>
+{% endif %}
+
+{% endif %}
+
+
+{% endblock %}
+
+</body>
+</html>

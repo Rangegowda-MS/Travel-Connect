@@ -1,0 +1,258 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+}
+
+/* CENTER WRAPPER */
+.payment-wrapper{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 15px;
+}
+
+/* CARD */
+.payment-card{
+    width:100%;
+    max-width:520px;
+    background:#ffffff;
+    border-radius:22px;
+    padding:35px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+    position:relative;
+    overflow:hidden;
+}
+
+/* TOP BAR */
+.payment-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.payment-header h2{
+    font-size:28px;
+    font-weight:800;
+    color:#111827;
+}
+
+.payment-header p{
+    font-size:14px;
+    color:#6b7280;
+    margin-top:5px;
+}
+
+/* FORM */
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:#374151;
+    margin-bottom:6px;
+}
+
+.form-group input{
+    width:100%;
+    padding:13px 14px;
+    border-radius:12px;
+    border:1px solid #d1d5db;
+    outline:none;
+    font-size:15px;
+    transition:0.3s;
+    background:#f9fafb;
+}
+
+.form-group input:focus{
+    border-color:#2563eb;
+    background:#fff;
+    box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+}
+
+/* GRID */
+.row{
+    display:flex;
+    gap:12px;
+}
+
+.row .form-group{
+    flex:1;
+}
+
+/* AMOUNT BOX */
+.amount-box{
+    background:#f1f5f9;
+    padding:15px;
+    border-radius:14px;
+    text-align:center;
+    margin:20px 0;
+}
+
+.amount-box h3{
+    margin:0;
+    color:#16a34a;
+    font-size:26px;
+    font-weight:800;
+}
+
+/* BUTTON */
+.pay-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.pay-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(37,99,235,0.35);
+}
+
+.pay-btn.loading{
+    pointer-events:none;
+    opacity:0.8;
+}
+
+/* SPINNER */
+.pay-btn.loading::after{
+    content:"";
+    position:absolute;
+    width:22px;
+    height:22px;
+    border:3px solid white;
+    border-top:3px solid transparent;
+    border-radius:50%;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    0%{transform:translate(-50%,-50%) rotate(0deg);}
+    100%{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+/* BACK */
+.back-btn{
+    display:block;
+    text-align:center;
+    margin-top:18px;
+    text-decoration:none;
+    font-weight:600;
+    color:#2563eb;
+}
+
+.back-btn:hover{
+    text-decoration:underline;
+}
+
+/* SECURITY TAG */
+.secure{
+    text-align:center;
+    font-size:12px;
+    color:#6b7280;
+    margin-top:15px;
+}
+
+</style>
+
+<div class="payment-wrapper">
+
+    <div class="payment-card">
+
+        <div class="payment-header">
+            <h2>Secure Payment</h2>
+            <p>{{ booking_type|title }} Booking Checkout</p>
+        </div>
+
+        <form method="POST" action="{% url 'payment_success' %}" onsubmit="payNow()">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Cardholder Name</label>
+                <input type="text" name="name" required placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" name="card" maxlength="16" pattern="\d{16}" required placeholder="1234 5678 9012 3456">
+            </div>
+
+            <div class="row">
+
+                <div class="form-group">
+                    <label>Expiry (MM/YY)</label>
+                    <input type="text" name="expiry" pattern="(0[1-9]|1[0-2])\/\d{2}" required placeholder="MM/YY">
+                </div>
+
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="password" name="cvv" maxlength="3" pattern="\d{3}" required placeholder="***">
+                </div>
+
+            </div>
+
+            <div class="amount-box">
+
+    <p>
+        Total Package Amount
+    </p>
+
+    <h3>
+        ₹ {{ amount }}
+    </h3>
+
+    <input
+        type="hidden"
+        name="amount"
+        value="{{ amount }}"
+    >
+
+</div>
+
+            <button type="submit" class="pay-btn" id="payBtn">
+                Pay Now Securely
+            </button>
+
+        </form>
+
+        <a href="{% url 'dashboard' %}" class="back-btn">
+            ← Back to Dashboard
+        </a>
+
+        <div class="secure">
+            🔒 Your payment is encrypted & secure
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function payNow(){
+    let btn = document.getElementById("payBtn");
+    btn.classList.add("loading");
+    btn.innerText = "Processing...";
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,316 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#095cc9;
+}
+
+/* HERO */
+.package-hero{
+    background:
+    linear-gradient(rgba(15,23,42,.80),
+    rgba(15,23,42,.80)),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    color:white;
+    text-align:center;
+    padding:100px 20px;
+}
+
+/* SEARCH CARD */
+.search-card{
+    background:white;
+    margin-top:-50px;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+/* FORM CLEAN UI */
+.search-card form{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:15px;
+}
+
+/* FIX LABEL ALIGNMENT */
+.search-card label{
+    font-weight:600;
+    margin-bottom:5px;
+    display:block;
+}
+
+/* INPUTS */
+.search-card select,
+.search-card input{
+    width:100%;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+/* BUTTON */
+.search-card button{
+    width:220px;
+    margin:10px auto 0;
+    display:block;
+    background:#2563eb;
+    color:white;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    font-weight:700;
+}
+
+/* SECTION TITLE */
+.section-title{
+    font-size:38px;
+    font-weight:700;
+    color:#111827;
+    text-align:center;
+    margin:50px 0 30px;
+}
+
+/* CARDS */
+.flight-card,
+.hotel-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.hotel-image{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.hotel-content{
+    padding-top:15px;
+}
+
+/* ACTION */
+.action-box{
+    text-align:center;
+    margin:50px 0;
+}
+
+.confirm-btn{
+    background:#2563eb;
+    color:white !important;
+    padding:14px 35px;
+    border-radius:12px;
+    font-weight:700;
+    text-decoration:none !important;
+}
+
+.back-btn{
+    background:#111827;
+    color:white !important;
+    padding:12px 25px;
+    border-radius:12px;
+    text-decoration:none !important;
+    margin-left:10px;
+}
+
+</style>
+
+<!-- HERO -->
+<section class="package-hero">
+    <h1>Your Travel Package</h1>
+    <p>Select flight, hotel, seats and rooms to continue</p>
+</section>
+
+<!-- SEARCH FORM -->
+<div class="container">
+
+    <div class="search-card">
+
+        <h3 class="text-center mb-4">Search Travel Packages</h3>
+
+       <form method="POST">
+    {% csrf_token %}
+
+    <div>
+        <label>Flight:</label>
+
+        <select name="flight" class="form-control">
+            <option value="">Choose Flight</option>
+
+            {% for f in allflights %}
+            <option value="{{ f.flight_num }}">
+                {{ f.company }} - {{ f.flight_num }}
+                ({{ f.source }} → {{ f.destination }})
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <label>Seats:</label>
+        {{ form.seats }}
+    </div>
+
+    <div>
+        <label>Hotel:</label>
+
+        <select name="hotel" class="form-control">
+            <option value="">Choose Hotel</option>
+
+            {% for h in allhotels %}
+            <option value="{{ h.hotel_name }}">
+                {{ h.hotel_name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <label>Rooms:</label>
+        {{ form.rooms }}
+    </div>
+
+    <button type="submit">
+        Search Travel Packages
+    </button>
+
+</form>
+
+    </div>
+
+</div>
+
+<!-- FLIGHTS -->
+<h2 class="section-title">Available Flights</h2>
+
+<div class="container">
+
+{% if allflights %}
+
+    {% for i in allflights %}
+
+    <div class="flight-card">
+        <h4>{{ i.company }}</h4>
+
+        <p>
+            <strong>Flight No:</strong>
+            {{ i.flight_num }}
+        </p>
+
+        <p>
+            <strong>From:</strong>
+            {{ i.source }}
+            →
+            <strong>To:</strong>
+            {{ i.destination }}
+        </p>
+
+        <p>
+            <strong>Departure:</strong>
+            {{ i.dept_time }}
+        </p>
+
+        <p>
+            <strong>Arrival:</strong>
+            {{ i.dest_time }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p class="text-center">
+    No flights available
+</p>
+
+{% endif %}
+
+</div>
+
+<!-- HOTELS -->
+<h2 class="section-title">Available Hotels</h2>
+
+<div class="container">
+
+{% if allhotels %}
+
+    {% for j in allhotels %}
+
+    <div class="hotel-card">
+
+        <img src="/media/{{ j.image1 }}"
+             class="hotel-image">
+
+        <div class="hotel-content">
+
+            <h3>{{ j.hotel_name }}</h3>
+
+            <p>{{ j.hotel_address }}</p>
+
+            <p>
+                {{ j.distfromap }}
+                KM from airport
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p class="text-center">
+    No hotels available
+</p>
+
+{% endif %}
+
+</div>
+
+<!-- ACTION -->
+<div class="action-box">
+
+{% if flavailability == "available" and havailability == "available" %}
+
+    {% for i in Flights %}
+        {% for j in Hotels %}
+
+        <a href="/userpackage/{{ i.flight_num }}/{{ j.hotel_name }}/{{ date }}/{{ roomreq }}/{{ seatsreq }}"
+           class="confirm-btn">
+
+            Confirm Package Booking
+
+        </a>
+
+        {% endfor %}
+    {% endfor %}
+
+{% endif %}
+
+<a href="{{ request.META.HTTP_REFERER|default:'/' }}"
+   class="back-btn">
+
+    Go Back
+
+</a>
+
+</div>
+
+{% endblock %}

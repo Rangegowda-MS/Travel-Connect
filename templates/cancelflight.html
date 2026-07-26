@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<br><br><br>
+
+<div class="container text-center">
+    <h1>Cancel this Flight Booking?</h1>
+</div>
+
+<br><br>
+
+{% for i in Flight %}
+
+<div class="container">
+
+    <div class="ticket shadow-lg p-3 mb-5 bg-white rounded">
+
+        <div class="row bg1 p-3">
+            <h3>{{ i.company }} - {{ i.flight_num }}</h3>
+        </div>
+
+        <div class="row bg1 p-3">
+
+            <p class="seatrem">
+                Seats: {{ seat }}
+            </p>
+
+            <p class="from">
+                FROM:<br>
+                {{ i.source }}
+            </p>
+
+            <p class="to">
+                TO:<br>
+                {{ i.destination }}
+            </p>
+
+            <p class="dept">
+                DEPARTURE TIME:<br>
+                {{ i.dept_time }}
+            </p>
+
+            <p class="dest">
+                ARRIVAL TIME:<br>
+                {{ i.dest_time }}
+            </p>
+
+            <p class="eprice">
+                ₹{{ price }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="text-center mb-5">
+
+        <a href="{% url 'concanflight' i.flight_num date seat %}"
+           class="btn btn-danger btn-lg">
+            Confirm Cancel
+        </a>
+
+        <a href="{% url 'dashboard' %}"
+           class="btn btn-secondary btn-lg">
+            Back
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

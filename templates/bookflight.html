@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Booking</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#f4f7fb;
+            min-height:100vh;
+        }
+
+        /* NAVBAR */
+
+        .navbar-custom{
+            background:#0f172a;
+            padding:18px 40px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .navbar-brand{
+            color:white !important;
+            font-size:28px;
+            font-weight:700;
+        }
+
+        .home-btn{
+            background:#2563eb;
+            color:white !important;
+            padding:10px 20px;
+            border-radius:10px;
+            text-decoration:none !important;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .home-btn:hover{
+            background:#1d4ed8;
+        }
+
+        /* HERO SECTION */
+
+        .hero{
+            background:
+            linear-gradient(rgba(15,23,42,0.75),
+            rgba(15,23,42,0.75)),
+            url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1600&auto=format&fit=crop');
+            background-size:cover;
+            background-position:center;
+            padding:90px 20px;
+            text-align:center;
+            color:white;
+        }
+
+        .hero h1{
+            font-size:52px;
+            font-weight:700;
+            margin-bottom:15px;
+        }
+
+        .hero p{
+            font-size:18px;
+            opacity:0.9;
+        }
+
+        /* SEARCH CARD */
+
+        .search-card{
+            margin-top:-50px;
+            background:white;
+            border-radius:20px;
+            padding:35px;
+            box-shadow:0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .search-card h2{
+            text-align:center;
+            margin-bottom:25px;
+            font-weight:700;
+            color:#111827;
+        }
+
+        .search-btn{
+            width:100%;
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:14px;
+            border-radius:12px;
+            font-size:17px;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .search-btn:hover{
+            background:#1d4ed8;
+        }
+
+        /* AVAILABLE TEXT */
+
+        .available-title{
+            margin-top:60px;
+            margin-bottom:25px;
+            font-size:34px;
+            font-weight:700;
+            color:#111827;
+            text-align:center;
+        }
+
+        /* FLIGHT CARD */
+
+        .flight-link{
+            text-decoration:none !important;
+            color:inherit;
+        }
+
+        .flight-card{
+            position:relative;
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            margin-bottom:35px;
+            transition:0.4s;
+            box-shadow:0 6px 25px rgba(0,0,0,0.08);
+        }
+
+        .flight-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        /* TOP */
+
+        .flight-top{
+            background:linear-gradient(to right,#2563eb,#1d4ed8);
+            color:white;
+            padding:22px 28px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .company-name{
+            font-size:26px;
+            font-weight:700;
+        }
+
+        .flight-number{
+            background:white;
+            color:#2563eb;
+            padding:8px 18px;
+            border-radius:30px;
+            font-weight:700;
+        }
+
+        /* BODY */
+
+        .flight-body{
+            padding:35px 28px;
+        }
+
+        .route{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .city-box{
+            text-align:center;
+        }
+
+        .city-box h3{
+            font-size:32px;
+            color:#111827;
+            font-weight:700;
+        }
+
+        .city-box p{
+            color:gray;
+            margin-top:5px;
+        }
+
+        .plane-icon{
+            font-size:40px;
+            color:#2563eb;
+        }
+
+        .timing-section{
+            margin-top:30px;
+            display:flex;
+            justify-content:space-between;
+            flex-wrap:wrap;
+            gap:20px;
+        }
+
+        .time-card{
+            flex:1;
+            min-width:200px;
+            background:#f8fafc;
+            border-radius:15px;
+            padding:20px;
+            text-align:center;
+        }
+
+        .time-card h5{
+            color:gray;
+            margin-bottom:10px;
+            font-size:15px;
+        }
+
+        .time-card p{
+            font-size:22px;
+            font-weight:700;
+            color:#111827;
+        }
+
+        /* BOTTOM */
+
+        .flight-footer{
+            padding:25px 28px;
+            border-top:1px solid #e5e7eb;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .price{
+            font-size:34px;
+            font-weight:700;
+            color:#16a34a;
+        }
+
+        .availability{
+            font-weight:600;
+            color:#2563eb;
+        }
+
+        /* BOOK BUTTON */
+
+        .book-btn{
+            position:absolute;
+            top:20px;
+            right:-120px;
+            background:#16a34a;
+            color:white;
+            padding:12px 25px;
+            border-radius:12px;
+            font-weight:700;
+            transition:0.4s;
+            opacity:0;
+        }
+
+        .flight-card:hover .book-btn{
+            right:20px;
+            opacity:1;
+        }
+
+        /* BOOKED */
+
+        .booked-overlay{
+            position:absolute;
+            inset:0;
+            background:rgba(0,0,0,0.55);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            z-index:5;
+        }
+
+        .booked-overlay h1{
+            color:white;
+            font-size:60px;
+            font-weight:700;
+            letter-spacing:5px;
+        }
+
+        /* BACK BUTTON */
+
+        .back-section{
+            text-align:center;
+            margin:50px 0;
+        }
+
+        .back-btn{
+            background:#111827;
+            color:white;
+            padding:14px 30px;
+            border-radius:12px;
+            text-decoration:none !important;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .back-btn:hover{
+            background:#1f2937;
+            color:white;
+        }
+
+        @media(max-width:768px){
+
+            .hero h1{
+                font-size:38px;
+            }
+
+            .route{
+                flex-direction:column;
+                gap:20px;
+            }
+
+            .timing-section{
+                flex-direction:column;
+            }
+
+            .flight-footer{
+                flex-direction:column;
+                gap:15px;
+                text-align:center;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+{% block content %}
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-custom">
+
+    <a class="navbar-brand" href="#">
+        ✈ TravelConnect
+    </a>
+
+    <div class="ml-auto">
+
+        <a href="/" class="home-btn">
+            Home
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <h1>Find Your Perfect Flight</h1>
+
+    <p>
+        Search, compare and book flights easily
+    </p>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="container">
+
+    <div class="search-card">
+
+        <h2>Search Flights</h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button class="search-btn">
+                Search Flights
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- AVAILABLE FLIGHTS -->
+
+{% if flight %}
+
+<div class="container">
+
+    <h2 class="available-title">
+        Available Flights
+    </h2>
+
+    {% for i in flight %}
+
+        {% if availability == "available" %}
+
+        <a href="/userflight/{{ i.flight_num }}/{{ date }}/{{ seatsreq }}"
+           class="flight-link">
+
+            <div class="flight-card">
+
+                <div class="book-btn">
+                    BOOK NOW
+                </div>
+
+                <div class="flight-top">
+
+                    <div class="company-name">
+                        {{ i.company }}
+                    </div>
+
+                    <div class="flight-number">
+                        {{ i.flight_num }}
+                    </div>
+
+                </div>
+
+                <div class="flight-body">
+
+                    <div class="route">
+
+                        <div class="city-box">
+
+                            <h3>{{ i.source }}</h3>
+
+                            <p>Departure</p>
+
+                        </div>
+
+                        <div class="plane-icon">
+                            ✈
+                        </div>
+
+                        <div class="city-box">
+
+                            <h3>{{ i.destination }}</h3>
+
+                            <p>Arrival</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="timing-section">
+
+                        <div class="time-card">
+
+                            <h5>Departure Time</h5>
+
+                            <p>{{ i.dept_time }}</p>
+
+                        </div>
+
+                        <div class="time-card">
+
+                            <h5>Arrival Time</h5>
+
+                            <p>{{ i.dest_time }}</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="flight-footer">
+
+                    <div>
+
+                        <div class="price">
+                            ₹{{ price }}
+                        </div>
+
+                    </div>
+
+                    <div class="availability">
+
+                        Available Seats:
+                        {{ seatrem }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+        {% else %}
+
+        <div class="flight-card">
+
+            <div class="booked-overlay">
+
+                <h1>BOOKED</h1>
+
+            </div>
+
+            <div class="flight-top">
+
+                <div class="company-name">
+                    {{ i.company }}
+                </div>
+
+                <div class="flight-number">
+                    {{ i.flight_num }}
+                </div>
+
+            </div>
+
+            <div class="flight-body">
+
+                <div class="route">
+
+                    <div class="city-box">
+
+                        <h3>{{ i.source }}</h3>
+
+                        <p>Departure</p>
+
+                    </div>
+
+                    <div class="plane-icon">
+                        ✈
+                    </div>
+
+                    <div class="city-box">
+
+                        <h3>{{ i.destination }}</h3>
+
+                        <p>Arrival</p>
+
+                    </div>
+
+                </div>
+
+                <div class="timing-section">
+
+                    <div class="time-card">
+
+                        <h5>Departure Time</h5>
+
+                        <p>{{ i.dept_time }}</p>
+
+                    </div>
+
+                    <div class="time-card">
+
+                        <h5>Arrival Time</h5>
+
+                        <p>{{ i.dest_time }}</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="flight-footer">
+
+                <div class="price">
+                    ₹{{ price }}
+                </div>
+
+                <div class="availability">
+
+                    Available Seats:
+                    {{ seatrem }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+<!-- BACK BUTTON -->
+
+<div class="back-section">
+
+    <a href="{{ request.META.HTTP_REFERER }}"
+       class="back-btn">
+
+        ← Go Back
+
+    </a>
+
+</div>
+
+{% endblock %}
+
+</body>
+</html>

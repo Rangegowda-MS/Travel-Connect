@@ -1,0 +1,419 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+.login-page{
+    min-height:100vh;
+    background:
+    linear-gradient(rgba(15,23,42,.65),rgba(15,23,42,.65)),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.login-card{
+    width:100%;
+    max-width:1150px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+
+.left-panel{
+    min-height:720px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:70px;
+    color:#fff;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.brand-logo{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    margin-right:15px;
+}
+
+.brand h2{
+    font-weight:700;
+    margin:0;
+}
+
+.left-panel h1{
+    font-size:4rem;
+    font-weight:800;
+    line-height:1.2;
+    margin-bottom:20px;
+}
+
+.left-panel p{
+    font-size:17px;
+    line-height:1.9;
+    max-width:500px;
+    opacity:.9;
+}
+
+.features{
+    margin-top:40px;
+}
+
+.feature{
+    display:flex;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.feature i{
+    margin-right:12px;
+    font-size:18px;
+}
+
+.right-panel{
+    background:#ffffff;
+    min-height:720px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:70px 60px;
+}
+
+.login-title{
+    margin-bottom:35px;
+}
+
+.login-title h3{
+    font-size:36px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.login-title p{
+    color:#64748b;
+    margin-top:10px;
+}
+
+.form-group{
+    margin-bottom:22px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#334155;
+}
+
+.form-control{
+    height:55px;
+    border-radius:14px;
+    border:1px solid #dbe2ea;
+    padding:0 18px;
+    transition:.3s;
+}
+
+.form-control:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-toggle{
+    position:absolute;
+    top:50%;
+    right:18px;
+    transform:translateY(-50%);
+    cursor:pointer;
+    font-size:20px;
+}
+
+.options{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.options label{
+    margin:0;
+    color:#475569;
+    font-size:14px;
+}
+
+.options a{
+    color:#2563eb;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+}
+
+.login-btn{
+    width:100%;
+    height:56px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.login-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(37,99,235,.35);
+}
+
+.divider{
+    text-align:center;
+    margin:25px 0;
+    color:#94a3b8;
+    position:relative;
+}
+
+.divider:before{
+    content:'';
+    position:absolute;
+    width:40%;
+    height:1px;
+    background:#e2e8f0;
+    left:0;
+    top:50%;
+}
+
+.divider:after{
+    content:'';
+    position:absolute;
+    width:40%;
+    height:1px;
+    background:#e2e8f0;
+    right:0;
+    top:50%;
+}
+
+.social-login{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.social-btn{
+    border:1px solid #e2e8f0;
+    background:#fff;
+    height:52px;
+    border-radius:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.social-btn:hover{
+    background:#f8fafc;
+}
+
+.register-link{
+    text-align:center;
+    margin-top:25px;
+    color:#64748b;
+}
+
+.register-link a{
+    color:#2563eb;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.alert{
+    margin-top:20px;
+}
+
+@media(max-width:991px){
+
+    .left-panel{
+        display:none;
+    }
+
+    .right-panel{
+        min-height:auto;
+        padding:40px 30px;
+    }
+
+    .login-card{
+        max-width:550px;
+    }
+}
+</style>
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <div class="row no-gutters">
+
+            <div class="col-lg-6">
+
+                <div class="left-panel">
+
+                    <div class="brand">
+                        <div class="brand-logo">✈</div>
+                        <h2>TravelConnect</h2>
+                    </div>
+
+                    <h1>Discover The World With Confidence</h1>
+
+                    <p>
+                        Book flights, hotels, holiday packages and unforgettable
+                        experiences from one platform. Secure, fast and trusted
+                        by travelers worldwide.
+                    </p>
+
+                    <div class="features">
+                        <div class="feature">✓ Flight Booking</div>
+                        <div class="feature">✓ Hotel Reservations</div>
+                        <div class="feature">✓ Holiday Packages</div>
+                        <div class="feature">✓ Secure Online Payments</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="right-panel">
+
+                    <div class="login-title">
+                        <h3>Welcome Back 👋</h3>
+                        <p>Login to access your travel dashboard</p>
+                    </div>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            {{ form.username }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+
+                            <div class="password-wrapper">
+                                {{ form.password }}
+
+                                <span class="password-toggle"
+                                      onclick="togglePassword('id_password')">
+                                    👁
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="options">
+
+                            <label>
+                                <input type="checkbox">
+                                Remember Me
+                            </label>
+
+                            <a href="{% url 'forgot_password' %}">
+                                Forgot Password?
+                            </a>
+
+                        </div>
+
+                        <button type="submit" class="login-btn">
+                            Sign In
+                        </button>
+
+                    </form>
+
+                    <div class="divider">
+                        OR
+                    </div>
+
+                    <div class="social-login">
+                        <button class="social-btn">
+                            Google
+                        </button>
+
+                        <button class="social-btn">
+                            Facebook
+                        </button>
+                    </div>
+
+                    <div class="register-link">
+                        Don't have an account?
+                        <a href="#">Create Account</a>
+                    </div>
+
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function togglePassword(fieldId){
+
+    const field = document.getElementById(fieldId);
+
+    if(field.type === "password"){
+        field.type = "text";
+    }else{
+        field.type = "password";
+    }
+}
+</script>
+
+{% endblock %}

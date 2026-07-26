@@ -1,0 +1,296 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<style>
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Poppins',sans-serif;
+    }
+
+    body{
+        background:#f4f7fb;
+        overflow-x:hidden;
+    }
+
+    /* HERO SECTION */
+
+    .hero-section{
+        width:100%;
+        height:420px;
+        background:
+        linear-gradient(rgba(15,23,42,0.55),
+        rgba(37,99,235,0.55)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+        background-size:cover;
+        background-position:center;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        color:white;
+        position:relative;
+    }
+
+    /* HOME BUTTON */
+
+    .home-btn{
+        position:absolute;
+        top:25px;
+        left:25px;
+        background:white;
+        color:#2563eb;
+        padding:12px 22px;
+        border-radius:14px;
+        text-decoration:none;
+        font-weight:600;
+        transition:0.3s;
+        box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    .home-btn:hover{
+        background:#2563eb;
+        color:white;
+    }
+
+    .hero-content h1{
+        font-size:65px;
+        font-weight:700;
+    }
+
+    .hero-content p{
+        font-size:20px;
+        opacity:0.95;
+    }
+
+    /* SEARCH */
+
+    .search-wrapper{
+        margin-top:-70px;
+    }
+
+    .search-box{
+        background:white;
+        max-width:750px;
+        margin:auto;
+        padding:35px;
+        border-radius:24px;
+        box-shadow:0 10px 35px rgba(0,0,0,0.12);
+    }
+
+    .search-btn{
+        width:100%;
+        padding:15px;
+        border:none;
+        border-radius:14px;
+        background:linear-gradient(to right,#2563eb,#1d4ed8);
+        color:white;
+        font-size:18px;
+        font-weight:600;
+    }
+
+    /* TITLE */
+
+    .section-title{
+        text-align:center;
+        margin:70px 0 50px;
+    }
+
+    .section-title h1{
+        font-size:48px;
+        font-weight:700;
+        color:#111827;
+    }
+
+    .section-title p{
+        color:#6b7280;
+        font-size:18px;
+        margin-top:10px;
+    }
+
+    /* PLACE CARD */
+
+    .place-card{
+        background:white;
+        border-radius:24px;
+        overflow:hidden;
+        margin-bottom:45px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .place-image{
+        width:100%;
+        height:100%;
+        min-height:350px;
+        object-fit:cover;
+    }
+
+    .place-details{
+        padding:35px;
+    }
+
+    .place-name{
+        font-size:38px;
+        font-weight:700;
+        margin-bottom:15px;
+    }
+
+    .place-desc{
+        color:#4b5563;
+        line-height:1.8;
+        font-size:16px;
+        margin-bottom:15px;
+    }
+
+    /* NEW POINTS STYLE */
+
+    .place-points{
+        margin-top:15px;
+        padding-left:18px;
+        color:#374151;
+    }
+
+    .place-points li{
+        margin-bottom:10px;
+        line-height:1.6;
+    }
+
+    /* EMPTY */
+
+    .empty-box{
+        background:white;
+        padding:50px;
+        border-radius:20px;
+        text-align:center;
+        color:gray;
+        box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    @media(max-width:768px){
+        .hero-content h1{font-size:42px;}
+        .place-name{font-size:28px;}
+    }
+
+</style>
+
+<!-- HERO -->
+
+<div class="hero-section">
+
+    <a href="{% url 'home' %}" class="home-btn">
+        ⬅ Go Home
+    </a>
+
+    <div class="hero-content">
+
+        <h1>Discover Amazing Places</h1>
+        <p>Explore famous destinations and unforgettable experiences</p>
+
+    </div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-wrapper">
+
+    <div class="container">
+
+        <div class="search-box">
+
+            <h2 class="text-center mb-4">Search Famous Places</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button class="search-btn">
+                    🔍 Search Places
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- TITLE -->
+
+<div class="section-title">
+    <h1>Popular Destinations</h1>
+    <p>Explore the best tourist attractions around the world</p>
+</div>
+
+<!-- PLACES -->
+
+<div class="container">
+
+{% if Famplace %}
+
+    {% for k in Famplace %}
+
+    <div class="place-card">
+
+        <div class="row no-gutters">
+
+            <!-- IMAGE -->
+            <div class="col-lg-5">
+                <img class="place-image"
+                     src="/media/{{ k.image }}"
+                     alt="place">
+            </div>
+
+            <!-- DETAILS -->
+            <div class="col-lg-7">
+
+                <div class="place-details">
+
+                    <h2 class="place-name">{{ k.place_name }}</h2>
+
+                    <p class="place-desc">
+                        {{ k.desc }}
+                    </p>
+
+                    <!-- KEY POINTS (NEW) -->
+                    <ul class="place-points">
+
+                        <li><strong>Best Time:</strong> Year-round but ideal during pleasant seasons</li>
+
+                        <li><strong>Main Attraction:</strong> Scenic views, cultural landmarks, and local experiences</li>
+
+                        <li><strong>Activities:</strong> Sightseeing, photography, adventure, and relaxation</li>
+
+                        <li><strong>Experience:</strong> A memorable destination for travelers and explorers</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="empty-box">
+
+        <h3>No Places Found</h3>
+        <p>Search for a city to discover famous tourist attractions.</p>
+
+    </div>
+
+{% endif %}
+
+</div>
+
+<br><br><br>
+
+{% endblock %}

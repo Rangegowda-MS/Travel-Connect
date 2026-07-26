@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Search Flights</title>
+
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar-custom{
+    background:#0f172a;
+    padding:18px 50px;
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+}
+
+.logo{
+    color:#fff;
+    font-size:30px;
+    font-weight:700;
+    text-decoration:none !important;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.nav-btn{
+    border:none;
+    outline:none;
+    text-decoration:none !important;
+    background:#2563eb;
+    color:#fff;
+    padding:10px 22px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-btn:hover{
+    background:#1d4ed8;
+    color:#fff;
+}
+
+/* HERO */
+
+.hero{
+    height:380px;
+    background:
+    linear-gradient(rgba(15,23,42,.72),rgba(15,23,42,.72)),
+    url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1600&q=80');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#fff;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:58px;
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+    max-width:700px;
+    opacity:.95;
+}
+
+/* SEARCH BOX */
+
+.search-wrapper{
+    margin-top:-70px;
+}
+
+.search-card{
+    background:#fff;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+.search-card h2{
+    text-align:center;
+    font-weight:700;
+    margin-bottom:25px;
+    color:#0f172a;
+}
+
+.search-card input,
+.search-card select{
+    width:100%;
+    height:55px;
+    border:1px solid #dbe2ea;
+    border-radius:12px;
+    padding:0 15px;
+    margin-bottom:15px;
+    outline:none;
+}
+
+.search-card input:focus,
+.search-card select:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+.search-btn{
+    width:100%;
+    height:55px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    font-weight:600;
+    font-size:16px;
+}
+
+/* RESULT TITLE */
+
+.results-title{
+    text-align:center;
+    margin:55px 0 30px;
+    font-size:38px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+/* FLIGHT CARD */
+
+.flight-link{
+    text-decoration:none !important;
+}
+
+.flight-card{
+    background:#fff;
+    border-radius:24px;
+    overflow:hidden;
+    margin-bottom:25px;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.flight-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 45px rgba(0,0,0,.15);
+}
+
+.flight-header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    padding:20px 25px;
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.airline{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.airline-logo{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:rgba(255,255,255,.18);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+}
+
+.airline-name{
+    font-size:22px;
+    font-weight:700;
+}
+
+.flight-no{
+    background:#fff;
+    color:#2563eb;
+    padding:8px 16px;
+    border-radius:30px;
+    font-weight:700;
+}
+
+.flight-body{
+    padding:30px;
+}
+
+.route-section{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.city{
+    text-align:center;
+}
+
+.city h3{
+    font-size:32px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.city span{
+    color:#64748b;
+}
+
+.route-line{
+    flex:1;
+    margin:0 20px;
+    position:relative;
+    text-align:center;
+}
+
+.route-line::before{
+    content:'';
+    position:absolute;
+    left:0;
+    right:0;
+    top:50%;
+    height:2px;
+    background:#cbd5e1;
+}
+
+.route-line span{
+    background:#fff;
+    position:relative;
+    padding:0 15px;
+    color:#2563eb;
+    font-size:28px;
+}
+
+.time-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.time-box{
+    background:#f8fafc;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.time-box h6{
+    color:#64748b;
+    margin-bottom:8px;
+}
+
+.time-box p{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.flight-footer{
+    padding:22px 30px;
+    border-top:1px solid #e5e7eb;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.price{
+    font-size:34px;
+    font-weight:800;
+    color:#16a34a;
+}
+
+.book-btn{
+    background:#16a34a;
+    color:#fff;
+    padding:12px 25px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+/* EMPTY */
+
+.no-flights{
+    text-align:center;
+    padding:50px;
+    color:#64748b;
+}
+
+/* BACK */
+
+.back-section{
+    text-align:center;
+    margin:40px 0 60px;
+}
+
+.back-btn{
+    text-decoration:none !important;
+    background:#0f172a;
+    color:#fff;
+    padding:14px 30px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+.back-btn:hover{
+    color:#fff;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .hero{
+        height:300px;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .route-section{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .route-line{
+        width:100%;
+        margin:15px 0;
+    }
+
+    .flight-footer{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .navbar-custom{
+        padding:15px 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-custom">
+
+    <a href="{% url 'home' %}" class="logo">
+        ✈ TravelConnect
+    </a>
+
+    <div class="nav-links">
+
+        <a href="{% url 'home' %}" class="nav-btn">
+            Home
+        </a>
+
+        <form method="POST" action="{% url 'logout' %}" class="m-0">
+            {% csrf_token %}
+            <button type="submit" class="nav-btn">
+                Logout
+            </button>
+        </form>
+
+    </div>
+
+</nav>
+
+<div class="hero">
+
+    <h1>Search Flights Worldwide</h1>
+
+    <p>
+        Compare fares, choose the best flights and book your next adventure with confidence.
+    </p>
+
+</div>
+
+<div class="container search-wrapper">
+
+    <div class="search-card">
+
+        <h2>Find Your Flight</h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="search-btn">
+                Search Flights
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% if Flights %}
+
+<div class="container">
+
+    <h2 class="results-title">
+        Available Flights
+    </h2>
+
+    {% for i in Flights %}
+
+    <a href="/bookflight/{{ i.flight_num }}/{{ date }}"
+       class="flight-link">
+
+        <div class="flight-card">
+
+            <div class="flight-header">
+
+                <div class="airline">
+
+                    <div class="airline-logo">
+                        ✈
+                    </div>
+
+                    <div class="airline-name">
+                        {{ i.company }}
+                    </div>
+
+                </div>
+
+                <div class="flight-no">
+                    {{ i.flight_num }}
+                </div>
+
+            </div>
+
+            <div class="flight-body">
+
+                <div class="route-section">
+
+                    <div class="city">
+                        <h3>{{ i.source }}</h3>
+                        <span>Departure</span>
+                    </div>
+
+                    <div class="route-line">
+                        <span>✈</span>
+                    </div>
+
+                    <div class="city">
+                        <h3>{{ i.destination }}</h3>
+                        <span>Arrival</span>
+                    </div>
+
+                </div>
+
+                <div class="time-grid">
+
+                    <div class="time-box">
+                        <h6>Departure Time</h6>
+                        <p>{{ i.dept_time }}</p>
+                    </div>
+
+                    <div class="time-box">
+                        <h6>Arrival Time</h6>
+                        <p>{{ i.dest_time }}</p>
+                    </div>
+
+                    <div class="time-box">
+                        <h6>Ticket Price</h6>
+                        <p>₹{{ i.eprice }}</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="flight-footer">
+
+                <div class="price">
+                    ₹{{ i.eprice }}
+                </div>
+
+                <div class="book-btn">
+                    Book Flight
+                </div>
+
+            </div>
+
+        </div>
+
+    </a>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="container">
+    <div class="no-flights">
+        <h3>No Flights Available</h3>
+        <p>Try changing your search criteria.</p>
+    </div>
+</div>
+
+{% endif %}
+
+<div class="back-section">
+
+    <a href="javascript:history.back()" class="back-btn">
+        ← Go Back
+    </a>
+
+</div>
+
+</body>
+</html>

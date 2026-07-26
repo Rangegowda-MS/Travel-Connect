@@ -1,0 +1,396 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+.register-page{
+    min-height:100vh;
+    background:
+    linear-gradient(rgba(15,23,42,.72),rgba(15,23,42,.72)),
+    url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 15px;
+}
+
+.register-card{
+    width:100%;
+    max-width:1150px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+
+.left-panel{
+    min-height:760px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:60px;
+}
+
+.left-content{
+    width:100%;
+    max-width:420px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.logo-icon{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    margin-right:15px;
+}
+
+.logo h2{
+    margin:0;
+    color:#fff;
+    font-weight:700;
+    font-size:32px;
+}
+
+.travel-heading{
+    font-size:46px;
+    font-weight:800;
+    line-height:1.2;
+    margin-bottom:20px;
+}
+
+.travel-text{
+    font-size:17px;
+    line-height:1.9;
+    color:rgba(255,255,255,.92);
+    margin-bottom:35px;
+}
+
+.features{
+    margin-top:10px;
+}
+
+.feature{
+    font-size:16px;
+    margin-bottom:18px;
+    font-weight:500;
+}
+
+.right-panel{
+    background:#fff;
+    min-height:760px;
+    padding:55px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.form-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.form-title h3{
+    font-size:36px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.form-title p{
+    color:#64748b;
+    margin-top:8px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#334155;
+}
+
+.form-group input{
+    width:100%;
+    height:55px;
+    border:1px solid #dbe2ea;
+    border-radius:14px;
+    padding:0 18px;
+    outline:none;
+    transition:.3s;
+}
+
+.form-group input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-wrapper input{
+    padding-right:55px;
+}
+
+.password-toggle{
+    position:absolute;
+    top:50%;
+    right:18px;
+    transform:translateY(-50%);
+    cursor:pointer;
+    font-size:20px;
+}
+
+.register-btn{
+    width:100%;
+    height:56px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    margin-top:10px;
+    transition:.3s;
+}
+
+.register-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(37,99,235,.35);
+}
+
+.login-link{
+    text-align:center;
+    margin-top:20px;
+    color:#64748b;
+}
+
+.login-link a{
+    color:#2563eb;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.alert{
+    margin-top:20px;
+}
+
+@media(max-width:991px){
+
+    .left-panel{
+        display:none;
+    }
+
+    .right-panel{
+        min-height:auto;
+        padding:35px 25px;
+    }
+
+    .register-card{
+        max-width:650px;
+    }
+}
+</style>
+
+<div class="register-page">
+
+    <div class="register-card">
+
+        <div class="row no-gutters">
+
+            <div class="col-lg-5">
+
+                <div class="left-panel">
+
+                    <div class="left-content">
+
+                        <div class="logo">
+                            
+                        </div>
+
+                        <h1 class="travel-heading">
+                            Start Your Next Adventure
+                        </h1>
+
+                        <p class="travel-text">
+                            Create your account and unlock access to flights,
+                            hotels, holiday packages and exclusive travel deals
+                            around the world.
+                        </p>
+
+                        <div class="features">
+                            <div class="feature">✓ Book Flights Instantly</div>
+                            <div class="feature">✓ Reserve Hotels Worldwide</div>
+                            <div class="feature">✓ Manage Trips Easily</div>
+                            <div class="feature">✓ Secure Online Payments</div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-7">
+
+                <div class="right-panel">
+
+                    <div class="form-title">
+                        <h3>Create Account</h3>
+                        <p>Join thousands of travelers worldwide</p>
+                    </div>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            {{ form.username }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>First Name</label>
+                            {{ form.first_name }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            {{ form.last_name }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            {{ form.email }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+
+                            <div class="password-wrapper">
+                                {{ form.password1 }}
+                                <span class="password-toggle"
+                                      onclick="togglePassword('id_password1')">👁</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+
+                            <div class="password-wrapper">
+                                {{ form.password2 }}
+                                <span class="password-toggle"
+                                      onclick="togglePassword('id_password2')">👁</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="register-btn">
+                            Create Account
+                        </button>
+
+                    </form>
+
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                   
+                    <div class="login-link">
+                        Already have an account?
+                        <a href="{% url 'login' %}">Sign In</a>
+                    </div>
+
+                    <div class="back-container">
+                        <a href="javascript:history.back()" class="back-btn">
+                            ← Go Back
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+Add this CSS before your `@media(max-width:991px)` section:
+
+css
+.back-container{
+    text-align:center;
+    margin-top:15px;
+}
+
+.back-btn{
+    display:inline-block;
+    padding:12px 25px;
+    border-radius:12px;
+    background:#f8fafc;
+    color:#0f172a;
+    text-decoration:none;
+    font-weight:600;
+    border:1px solid #dbe2ea;
+    transition:.3s;
+}
+
+.back-btn:hover{
+    background:#e2e8f0;
+    color:#0f172a;
+    text-decoration:none;
+    transform:translateY(-2px);
+}
+
+
+<script>
+function togglePassword(fieldId){
+    const field = document.getElementById(fieldId);
+
+    if(field.type === "password"){
+        field.type = "text";
+    }else{
+        field.type = "password";
+    }
+}
+</script>
+
+{% endblock %}
