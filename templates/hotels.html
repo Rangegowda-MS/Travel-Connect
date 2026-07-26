@@ -374,10 +374,11 @@ body{
     {% for i in Hotels %}
 
     <div class="hotel-card">
+{% load static %}
 
-        <img src="/media/{{ i.image1 }}"
-             class="hotel-image"
-             alt="{{ i.hotel_name }}">
+<img src="{% static i.image1 %}"
+     class="hotel-image"
+     alt="{{ i.hotel_name }}">
 
         <div class="hotel-content">
 

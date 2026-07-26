@@ -254,9 +254,9 @@ body{
 
     <div class="hotel-card">
 
-        <img src="/media/{{ j.image1 }}"
-             class="hotel-image">
-
+       <img src="{% static j.image1 %}"
+     class="hotel-image"
+     alt="{{ j.hotel_name }}">
         <div class="hotel-content">
 
             <h3>{{ j.hotel_name }}</h3>

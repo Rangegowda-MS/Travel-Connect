@@ -39,7 +39,7 @@ class Hotels(models.Model):
     amenities = models.CharField(max_length=500)
     distfromap = models.IntegerField(null=True)
     rooms = models.IntegerField(default=0)
-    image1 = models.ImageField(null=True,upload_to='img/')
+    image1 = models.CharField(max_length=100, null=True, blank=True)
 
 
     def __str__(self):
@@ -48,7 +48,7 @@ class Hotels(models.Model):
 class Famous(models.Model):
     city = models.ForeignKey(City,on_delete=models.CASCADE)
     place_name = models.CharField(max_length=200)
-    image = models.ImageField(null=True,upload_to='img/')
+    image = models.CharField(max_length=100, null=True, blank=True)
     desc = models.CharField(max_length=500)
 
     def __str__(self):

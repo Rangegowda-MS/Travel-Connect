@@ -319,9 +319,9 @@ body{
 
 <div class="hotel-card">
 
-    <img src="/media/{{ j.image1 }}"
-         class="hotel-img"
-         alt="hotel">
+    <img class="h-img shadow-lg"
+     src="{% static j.image1 %}"
+     alt="{{ j.hotel_name }}">
 
     <div class="hotel-content">
 
@@ -372,10 +372,9 @@ body{
 <div class="col-lg-4 col-md-6">
 
     <div class="place-card">
-
-        <img src="/media/{{ k.image }}"
-             class="place-img"
-             alt="place">
+<img src="{% static k.image %}"
+     class="place-img"
+     alt="{{ k.place_name }}">
 
         <div class="place-content">
 

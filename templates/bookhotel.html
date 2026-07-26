@@ -405,7 +405,10 @@ Sold Out
 </div>
 {% endif %}
 
-<img src="/media/{{ i.image1 }}"
+{% load static %}
+
+<img src="{% static i.image %}"
+     alt="{{ i.place_name }}">
 class="hotel-image"
 alt="{{ i.hotel_name }}">
 

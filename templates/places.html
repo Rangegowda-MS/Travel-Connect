@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
-
+{% load static %}
 {% block content %}
+
 
 <style>
 
@@ -239,11 +240,12 @@
 
             <!-- IMAGE -->
             <div class="col-lg-5">
-                <img class="place-image"
-                     src="/media/{{ k.image }}"
-                     alt="place">
-            </div>
 
+    <img class="place-image"
+         src="{% static k.image %}"
+         alt="{{ k.place_name }}">
+
+</div>
             <!-- DETAILS -->
             <div class="col-lg-7">
 
