@@ -25,15 +25,22 @@ TEMPLATE_DIR = os.path.join(
 # SECURITY
 # =====================================================
 
-SECRET_KEY = 'axx97&6%uwp!(*fg$q8s*%5honv!4i7#ce8o4#+m)e$9h)!#x0'
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-local-key"
+)
 
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
-    ".onrender.com",
     "127.0.0.1",
     "localhost",
+    ".onrender.com",
 ]
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # =====================================================
 # APPLICATIONS
